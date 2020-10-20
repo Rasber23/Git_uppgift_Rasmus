@@ -52,16 +52,13 @@ public class Guesser {
    */
   private String getReply() {
     String reply = System.console().readLine().toUpperCase();
-
     
-
     while (!reply.equals("T") && !reply.equals("F")) {
-      System.out.println("please answer T or F");
-      
-      return null;
+      System.out.println("Please answer T for true, and F for false.\n"); 
+      reply = System.console().readLine().toUpperCase();  
     }
     return reply;
-  }
+  } 
 
   private void doGuesses() {
     int i = 0; // number of guesses
