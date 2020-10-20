@@ -51,12 +51,13 @@ public class Guesser {
    * the player.
    */
   private String getReply() {
-    String reply = System.console().readLine();
+    String reply = System.console().readLine().toUpperCase();
 
-    while (!reply.equals("t") || !reply.equals("t")) {
+    
+
+    while (!reply.equals("T") && !reply.equals("F")) {
       System.out.println("please answer T or F");
-      reply = System.console().readLine();
-
+      
       return null;
     }
     return reply;
