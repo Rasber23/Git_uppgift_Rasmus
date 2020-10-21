@@ -1,0 +1,127 @@
+Jag siktar på VG! NAHDI SVIK MIG inte!
+
+När använder man add respektive commit?
+ADD-> används för att skicka över mina editeringar till staging area.
+Commit--> 
+gör en ögonblicksbild av ”stageing area”
+
+Vad är pull repektive push?
+
+Pull-> 
+Ladda ner den senaste varianten av de senaste repository och mergar den men din lokal .
+Gitt pull är faktiskt två komandon där enda hämtar (git fetch) och den andra slår ihop repository .(git merch)  
+
+Push-> Uppdaterar det Centrala  repository. 
+
+
+
+När använder man log respektive status?
+
+Log-> när jag vill se vad som har hänt i den branchen som jag står i. 
+
+Status-> Låter dig vet status där du står i ditt repository. Förändringar i filer vad som ligger i staging area om det finns något att checka in. Även villken gren du står på. 
+ 
+Hur kan man formulera sig i sina commit-meddelanden?
+-formulera sig kort!
+Man ska även formulera sig i nutid. Se exempel. 
+*”fixar buggar” 
+*” Lägger till två ny klasser med. blalblba”
+
+
+
+*********
+Vg fråga 
+*********
+
+
+
+Det finns två kommandon ”git reset” och ”git revert”. Båda med sina flagor för att göra lite olika ändringar.
+Den fundamentala skillnaden mellan dessa 2 komandon är hur dom hanterar loggar i git. 
+
+Git Reset raderar den senaste commiten och går tillbaka till den loggen(snappshot) som du önskar. 
+
+Här kan det uppstå problem.  Jag har nedan ett exempel där jag har laddat upp två filer 
+File.txt
+Misstag.txt
+
+***************************************************************
+jag har laddat upp ett misstag.txt till det centrala repot Och jag vill nu ångra mig. 
+
+***************************************************************
+commit b510538ff0e81bcb3b89ab19f3822aed37d59d8c (HEAD -> master, vg/master)
+Author: RasBER <rasmusbernestal@gmail.com>
+Date:   Tue Oct 20 21:48:16 2020 +0200
+
+    laddar upp ännu en text fil
+
+commit 5d5301e9951b0ed64161f6ed66191bf35f491d2b
+Author: RasBER <rasmusbernestal@gmail.com>
+Date:   Tue Oct 20 21:44:05 2020 +0200
+
+***************************************************************
+Jag använder mig av git reset --hard head^ för att ta bort allt i min lokala repo för att sedan ladda upp på nytt. 
+***************************************************************
+
+Rasmuss-MacBook-Pro:Vg rasmusbernestal$ ls
+App.txt
+Rasmuss-MacBook-Pro:Vg rasmusbernestal$ git add .
+
+Rasmuss-MacBook-Pro:Vg rasmusbernestal$ git commit -m "tagit bort misstag.txt" 
+På grenen master
+inget att checka in, arbetskatalogen ren
+
+Rasmuss-MacBook-Pro:Vg rasmusbernestal$ git push vg master
+To https://github.com/Rasber23/git_test.git
+ ! [rejected]        master -> master (non-fast-forward)
+error: misslyckades sända vissa referenser till "https://github.com/Rasber23/git_test.git"
+tips: Uppdateringar avvisades då änden på din befintliga gren är bakom
+tips: dess fjärrmotsvarighet. Integrera fjärrändringarna (t.ex
+tips: "git pull ....") innan du sänder igen.
+tips: Se avsnittet "Note about fast-forward" i "git push --help" för detaljer.
+
+Rasmuss-MacBook-Pro:Vg rasmusbernestal$ 
+
+Här stöter vi på patrul eftersom vi inte har samma historik i vårat lokala repo som i vårat centrala repo. 
+
+Så nu får vi göra rätt för oss här kommer git revert in. 
+
+Vi gör: 
+
+***************************************************************
+
+Rasmuss-MacBook-Pro:Vg rasmusbernestal$ git pull vg master
+
+För att ta ner den senaste commiten och så att det lokala repot och centrala repot matchar gällande loggar.
+
+ommit b510538ff0e81bcb3b89ab19f3822aed37d59d8c (HEAD -> master, vg/master)
+Author: RasBER <rasmusbernestal@gmail.com>
+Date:   Tue Oct 20 21:48:16 2020 +0200
+
+    laddar upp ännu en text fil
+
+
+vi använder Git revert : 
+
+Rasmuss-MacBook-Pro:Vg rasmusbernestal$ git revert b510538ff0e81bcb3b89ab19f3822aed37d59d8c
+Tar bort misstag.txt
+... 
+
+
+Och fick en logg som gjorde att vi det lokala repons head är på samma plats som det centrala repon
+***************************************************************
+
+commit 38ebc739e49b609cc6795aa4773b49c61a7cc03e (HEAD -> master, vg/master)
+Author: RasBER <rasmusbernestal@gmail.com>
+Date:   Tue Oct 20 22:30:22 2020 +0200
+
+    tog bort misstag.txt
+
+
+
+
+
+
+
+
+
+
